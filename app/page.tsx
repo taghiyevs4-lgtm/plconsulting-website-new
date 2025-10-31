@@ -24,10 +24,8 @@ const NAV_LINKS = [
 
 export default function Page() {
   const [page, setPage] = useState("home");
-
   return (
     <div className="min-h-screen bg-[#0c0c0c] text-white">
-      {/* Top Bar */}
       <header className="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
@@ -55,16 +53,13 @@ export default function Page() {
               className="rounded-md border border-white/10 bg-black/60 px-3 py-2 text-sm"
             >
               {NAV_LINKS.map((l) => (
-                <option key={l.id} value={l.id}>
-                  {l.label}
-                </option>
+                <option key={l.id} value={l.id}>{l.label}</option>
               ))}
             </select>
           </div>
         </div>
       </header>
 
-      {/* Page Body */}
       <main>
         {page === "home" && <Home onGetInTouch={() => setPage("contact")} />}
         {page === "about" && <About />}
@@ -73,7 +68,6 @@ export default function Page() {
         {page === "contact" && <Contact />}
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-white/10 bg-black/70">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-8 md:grid-cols-4">
           <div className="col-span-1 md:col-span-2">
@@ -222,9 +216,7 @@ function ServiceCard({ title, points }) {
     <div className="group rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-0.5 hover:bg-white/10">
       <div className="text-lg font-semibold text-white">{title}</div>
       <ul className="mt-3 space-y-2 text-sm text-white/70">
-        {points.map((p) => (
-          <li key={p}>• {p}</li>
-        ))}
+        {points.map((p) => (<li key={p}>• {p}</li>))}
       </ul>
       <div className="mt-5 text-right">
         <button className="rounded-xl border border-[#CBA135] px-4 py-2 text-xs font-semibold tracking-wide text-[#CBA135] transition hover:bg-[#CBA135] hover:text-black">
@@ -240,52 +232,16 @@ function Services() {
     <div>
       <Section eyebrow="Services" title="Integrated Legal & Business Advisory" subtitle="Four practice areas delivering end-to-end value.">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <ServiceCard
-            title="Legal Advisory"
-            points={[
-              "Corporate & Contracts",
-              "Compliance & Regulatory",
-              "Employment & Policies",
-              "Disputes & Arbitration support",
-            ]}
-          />
-          <ServiceCard
-            title="Financial & Tax"
-            points={[
-              "Tax Planning & Audit",
-              "Budgeting & Reporting",
-              "Structuring & Controls",
-              "Transaction support",
-            ]}
-          />
-          <ServiceCard
-            title="HR Consulting"
-            points={[
-              "Recruitment & Assessment",
-              "Policies & Handbooks",
-              "Performance & Rewards",
-              "Training programs",
-            ]}
-          />
-          <ServiceCard
-            title="Corporate Events"
-            points={[
-              "Trainings & Workshops",
-              "Seminars & Conferences",
-              "PR & Brand support",
-              "Turn-key event management",
-            ]}
-          />
+          <ServiceCard title="Legal Advisory" points={["Corporate & Contracts","Compliance & Regulatory","Employment & Policies","Disputes & Arbitration support"]} />
+          <ServiceCard title="Financial & Tax" points={["Tax Planning & Audit","Budgeting & Reporting","Structuring & Controls","Transaction support"]} />
+          <ServiceCard title="HR Consulting" points={["Recruitment & Assessment","Policies & Handbooks","Performance & Rewards","Training programs"]} />
+          <ServiceCard title="Corporate Events" points={["Trainings & Workshops","Seminars & Conferences","PR & Brand support","Turn-key event management"]} />
         </div>
       </Section>
 
       <Section eyebrow="Engagement" title="How we work" subtitle="Clear stages, transparent pricing, measurable outcomes.">
         <ol className="grid list-decimal grid-cols-1 gap-4 pl-6 text-white/80 md:grid-cols-3">
-          {[
-            { t: "Discovery", s: "Understand your goals, assess context" },
-            { t: "Proposal", s: "Scope, timeline, fees & deliverables" },
-            { t: "Delivery", s: "Partner-led execution and handover" },
-          ].map((s, i) => (
+          {[{t:"Discovery",s:"Understand your goals, assess context"},{t:"Proposal",s:"Scope, timeline, fees & deliverables"},{t:"Delivery",s:"Partner-led execution and handover"}].map((s,i)=>(
             <li key={i} className="rounded-2xl border border-white/10 bg-white/5 p-5">
               <div className="text-sm font-semibold text-[#CBA135]">{s.t}</div>
               <div className="mt-1 text-sm text-white/70">{s.s}</div>
@@ -302,11 +258,7 @@ function Team() {
     <div>
       <Section eyebrow="Team" title="Leadership" subtitle="Senior experts with banking, corporate and regulatory background.">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {[
-            { n: "Founder / Managing Partner", b: "Strategy, Legal, Compliance", k: "Former Head of Legal (Banking)" },
-            { n: "Partner — Finance", b: "Tax, Audit, Financial Control", k: "Ex-Big4 / Corporate Finance" },
-            { n: "Partner — HR", b: "Policies, Talent, Performance", k: "HR Ops & Change Mgmt" },
-          ].map((m) => (
+          {[{n:"Founder / Managing Partner",b:"Strategy, Legal, Compliance",k:"Former Head of Legal (Banking)"},{n:"Partner — Finance",b:"Tax, Audit, Financial Control",k:"Ex-Big4 / Corporate Finance"},{n:"Partner — HR",b:"Policies, Talent, Performance",k:"HR Ops & Change Mgmt"}].map((m)=>(
             <div key={m.n} className="rounded-2xl border border-white/10 bg-white/5 p-6">
               <div className="h-14 w-14 rounded-xl bg-white/5 ring-1 ring-white/10" />
               <div className="mt-4 text-base font-semibold text-white">{m.n}</div>
@@ -319,7 +271,7 @@ function Team() {
 
       <Section eyebrow="Advisory Board" title="Advisors" subtitle="We collaborate with sector specialists for complex mandates.">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {["Banking Regulation", "Litigation & Arbitration", "Corporate Communications"].map((s) => (
+          {["Banking Regulation","Litigation & Arbitration","Corporate Communications"].map((s)=>(
             <div key={s} className="rounded-2xl border border-white/10 bg-white/5 p-6 text-white/80">
               <div className="text-sm font-semibold text-[#CBA135]">{s}</div>
               <p className="mt-2 text-sm text-white/70">Available on engagement basis.</p>
