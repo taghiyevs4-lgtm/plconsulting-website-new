@@ -1,17 +1,30 @@
-import { NextResponse } from "next/server";
+// middleware.ts
+
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { defaultLocale, isLocale } from "./lib/i18n";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  if (pathname.startsWith("/_next") || pathname.startsWith("/api") || pathname.includes(".")) return;
+
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.includes(".")
+  ) {
+    return;
+  }
 
   const first = pathname.split("/")[1];
-  if (isLocale(first)) return;
+  if (isLocale(first)) {
+    return;
+  }
 
   const url = request.nextUrl.clone();
   url.pathname = `/${defaultLocale}${pathname}`;
   return NextResponse.redirect(url);
 }
 
-export const config = { matcher: ["/((?!_next|.*\\..*|api).*)"] };
+export const config = {
+  matcher: ["/((?!_next|.*\\..*|api).*)"],
+};
