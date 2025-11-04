@@ -1,121 +1,183 @@
+"use client";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function HomePage() {
+  const [section, setSection] = useState<"home"|"about"|"services"|"team"|"contact">("home");
+
   return (
-    <main className="bg-[#0d0d0d] text-white">
-      {/* HERO BÖLMƏSİ */}
+    <main className="bg-[#0d0d0d] text-white min-h-screen">
+      {/* NAV */}
+      <header className="sticky top-0 z-50 bg-black/70 backdrop-blur border-b border-white/10">
+        <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="h-8 w-8 relative">
+              <svg viewBox="0 0 64 64" className="h-full w-full">
+                <rect x="2" y="2" width="60" height="60" rx="10" className="fill-transparent" style={{stroke:"#CBA135",strokeWidth:1.5}}/>
+                <path d="M16 46 V18 h12 c7 0 12 4 12 10 s-5 10-12 10 h-8" className="fill-none" style={{stroke:"#CBA135",strokeWidth:3,strokeLinecap:"round"}}/>
+                <path d="M42 20 v24 h10" className="fill-none" style={{stroke:"#CBA135",strokeWidth:3,strokeLinecap:"round"}}/>
+              </svg>
+            </div>
+            <div className="leading-tight">
+              <div className="font-semibold">Prime Legal & Consulting</div>
+              <div className="text-xs text-white/60">Baku, Azerbaijan</div>
+            </div>
+          </div>
+          <nav className="hidden md:flex items-center gap-6 text-sm">
+            {[
+              ["home","Ana səhifə"],
+              ["about","Haqqımızda"],
+              ["services","Xidmətlər"],
+              ["team","Komanda"],
+              ["contact","Əlaqə"],
+            ].map(([id,label]) => (
+              <button
+                key={id}
+                onClick={() => setSection(id as any)}
+                className={`uppercase tracking-wide ${section===id ? "text-[#CBA135]" : "text-white/70 hover:text-white"}`}
+              >
+                {label}
+              </button>
+            ))}
+          </nav>
+        </div>
+      </header>
+
+      {/* HERO — Next/Image düzgün görünməsi üçün parent RELATIVE və sabit hündürlük */}
       <section className="relative h-[90vh] flex items-center justify-center">
-        <Image
-          src="/images/hero.jpg"
-          alt="Prime Legal & Consulting"
-          fill
-          className="object-cover opacity-50"
-          priority
-        />
-        <div className="relative z-10 text-center">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero.jpg"
+            alt="Prime Legal & Consulting"
+            fill
+            priority
+            className="object-cover opacity-50"
+          />
+        </div>
+        <div className="relative z-10 text-center px-6">
           <h1 className="text-5xl md:text-6xl font-bold mb-4 text-[#c7a249]">
             Prime Legal & Consulting
           </h1>
-          <p className="text-xl md:text-2xl text-gray-200">
-            Hüquq, Maliyyə, HR və Tədbir İdarəçiliyi üzrə Peşəkar Xidmətlər
+          <p className="text-lg md:text-2xl text-white/90 max-w-3xl mx-auto">
+            Hüquq, maliyyə, HR və tədbir idarəçiliyi üzrə peşəkar konsaltinq.
           </p>
-          <a
-            href="#services"
-            className="mt-8 inline-block px-8 py-3 bg-[#c7a249] text-black font-semibold rounded-lg hover:bg-yellow-500 transition"
+          <button
+            onClick={() => setSection("services")}
+            className="mt-8 px-8 py-3 bg-[#c7a249] text-black font-semibold rounded-lg hover:bg-yellow-500 transition"
           >
             Xidmətlərimiz
-          </a>
+          </button>
         </div>
       </section>
 
-      {/* XİDMƏTLƏR BÖLMƏSİ */}
-      <section id="services" className="py-20 px-6 md:px-20 bg-[#111]">
-        <h2 className="text-center text-4xl font-bold mb-12 text-[#c7a249]">
-          Xidmət Sahələrimiz
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* HÜQUQ */}
-          <div className="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg hover:scale-[1.03] transition">
-            <Image
-              src="/images/legal.jpg"
-              alt="Hüquq xidmətləri"
-              width={400}
-              height={300}
-              className="object-cover w-full h-60"
-            />
-            <div className="p-6">
-              <h3 className="text-2xl font-semibold text-[#c7a249] mb-2">
-                Hüquq Xidmətləri
-              </h3>
-              <p className="text-gray-300 text-sm">
-                Müştərilərimizə kommersiya, əmək, korporativ və bank hüququ
-                sahələrində hüquqi dəstək təqdim edirik.
-              </p>
-            </div>
-          </div>
-
-          {/* MALİYYƏ */}
-          <div className="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg hover:scale-[1.03] transition">
-            <Image
-              src="/images/finance.jpg"
-              alt="Maliyyə xidmətləri"
-              width={400}
-              height={300}
-              className="object-cover w-full h-60"
-            />
-            <div className="p-6">
-              <h3 className="text-2xl font-semibold text-[#c7a249] mb-2">
-                Maliyyə Konsaltinqi
-              </h3>
-              <p className="text-gray-300 text-sm">
-                Şirkətlərin maliyyə strukturunun təhlili, planlaşdırılması və
-                investisiya strategiyalarının hazırlanması.
-              </p>
-            </div>
-          </div>
-
-          {/* HR */}
-          <div className="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg hover:scale-[1.03] transition">
-            <Image
-              src="/images/hr.jpg"
-              alt="HR xidmətləri"
-              width={400}
-              height={300}
-              className="object-cover w-full h-60"
-            />
-            <div className="p-6">
-              <h3 className="text-2xl font-semibold text-[#c7a249] mb-2">
-                HR və İdarəetmə
-              </h3>
-              <p className="text-gray-300 text-sm">
-                İnsan resurslarının seçimi, qiymətləndirilməsi və motivasiya
-                sistemlərinin hazırlanması.
-              </p>
-            </div>
-          </div>
-
-          {/* TƏDBİR MENECMENTİ */}
-          <div className="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg hover:scale-[1.03] transition">
-            <Image
-              src="/images/event.jpg"
-              alt="Tədbir menecmenti"
-              width={400}
-              height={300}
-              className="object-cover w-full h-60"
-            />
-            <div className="p-6">
-              <h3 className="text-2xl font-semibold text-[#c7a249] mb-2">
-                Tədbir Menecmenti
-              </h3>
-              <p className="text-gray-300 text-sm">
-                Korporativ tədbirlərin, konfransların və biznes görüşlərinin
-                tam planlaşdırılması və idarə olunması.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* SWITCHED SECTIONS */}
+      {section==="about" && <AboutSection />}
+      {section==="services" && <ServicesSection />}
+      {section==="team" && <TeamSection />}
+      {section==="contact" && <ContactSection />}
     </main>
+  );
+}
+
+function Section({title, subtitle, children}:{title:string; subtitle?:string; children:any}) {
+  return (
+    <section className="py-16 border-t border-white/10">
+      <div className="mx-auto max-w-7xl px-4">
+        <h2 className="text-3xl md:text-4xl font-semibold text-[#c7a249]">{title}</h2>
+        {subtitle && <p className="mt-2 text-white/70 max-w-2xl">{subtitle}</p>}
+        <div className="mt-8">{children}</div>
+      </div>
+    </section>
+  );
+}
+
+function AboutSection() {
+  return (
+    <Section title="Haqqımızda" subtitle="Boutique, partner-led, nəticəyönümlü konsaltinq.">
+      <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="relative h-80 rounded-xl overflow-hidden ring-1 ring-white/10">
+          <Image src="/images/legal.jpg" alt="Haqqımızda" fill className="object-cover"/>
+        </div>
+        <div className="space-y-3 text-white/80">
+          <p>Şirkətlərə hüquqi, maliyyə və insan resursları üzrə kompleks dəstək.</p>
+          <p>Bankçılıq, korporativ idarəetmə, müqavilələr, uyğunluq (compliance) və mübahisə dəstəyi.</p>
+          <ul className="list-disc ml-5">
+            <li>Strategiya + icra</li>
+            <li>Şəffaf qiymət və SLA</li>
+            <li>Diskretlik və təhlükəsizlik</li>
+          </ul>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function ServicesSection() {
+  return (
+    <Section title="Xidmətlər">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {[
+          {src:"/images/legal.jpg", title:"Hüquq", text:"Korporativ, müqavilələr, əməy hüququ, bank və tənzimləmə."},
+          {src:"/images/finance.jpg", title:"Maliyyə", text:"Maliyyə planlama, audit, vergi, investisiya strukturları."},
+          {src:"/images/hr.jpg", title:"HR", text:"Seçim, performans, ödəniş və motivasiya sistemləri."},
+          {src:"/images/event.jpg", title:"Tədbirlər", text:"Konfrans, təlim, PR dəstəyi və mərasim idarəçiliyi."},
+        ].map((card)=>(
+          <div key={card.title} className="bg-[#141414] rounded-xl overflow-hidden ring-1 ring-white/10 hover:scale-[1.02] transition">
+            <div className="relative h-56">
+              <Image src={card.src} alt={card.title} fill className="object-cover" />
+            </div>
+            <div className="p-5">
+              <div className="text-xl font-semibold text-[#c7a249]">{card.title}</div>
+              <p className="mt-2 text-sm text-white/70">{card.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+function TeamSection() {
+  return (
+    <Section title="Komanda" subtitle="Partnyor-əsaslı struktura və ekspert şəbəkəsi.">
+      <div className="grid md:grid-cols-3 gap-6">
+        {["Founder / Legal Lead", "Finance Advisor", "HR Partner"].map((role, i)=>(
+          <div key={i} className="bg-[#141414] rounded-xl p-6 ring-1 ring-white/10">
+            <div className="h-40 relative rounded-lg overflow-hidden mb-4">
+              <Image src="/images/hr.jpg" alt="Team" fill className="object-cover"/>
+            </div>
+            <div className="font-semibold">Mütəxəssis {i+1}</div>
+            <div className="text-sm text-white/60">{role}</div>
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+function ContactSection() {
+  return (
+    <Section title="Əlaqə" subtitle="Birgə işləməyə başlayaq. 24 saat ərzində geri dönüş.">
+      <div className="grid md:grid-cols-2 gap-8">
+        <form
+          action="https://formspree.io/f/xbldzxyz" /* Formspree ID-ni özününkülə dəyiş */
+          method="POST"
+          className="bg-[#141414] rounded-xl p-6 ring-1 ring-white/10 space-y-4"
+        >
+          <input name="name" placeholder="Ad, Soyad" className="w-full rounded-lg bg-black/40 border border-white/10 px-4 py-3 outline-none" required />
+          <input type="email" name="email" placeholder="E-poçt" className="w-full rounded-lg bg-black/40 border border-white/10 px-4 py-3 outline-none" required />
+          <textarea name="message" placeholder="Mesajınız" className="w-full h-28 rounded-lg bg-black/40 border border-white/10 px-4 py-3 outline-none" required />
+          <button className="px-6 py-3 bg-[#c7a249] text-black font-semibold rounded-lg hover:bg-yellow-500 transition">Göndər</button>
+        </form>
+        <div className="bg-[#141414] rounded-xl p-6 ring-1 ring-white/10 space-y-3 text-white/80">
+          <div><span className="text-white/60">E-poçt:</span> info@plconsulting.az</div>
+          <div><span className="text-white/60">Ünvan:</span> Baku, Azerbaijan</div>
+          <div><span className="text-white/60">Sosial:</span> LinkedIn / Instagram @plconsulting</div>
+          <div className="relative h-48 rounded-lg overflow-hidden">
+            <Image src="/images/event.jpg" alt="Office" fill className="object-cover opacity-70" />
+          </div>
+        </div>
+      </div>
+    </Section>
   );
 }
