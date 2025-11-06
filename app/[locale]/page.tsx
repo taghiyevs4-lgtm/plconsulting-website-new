@@ -8,29 +8,51 @@ export default async function HomePage({ params: { locale } }: { params: { local
     <main className="bg-[#0d0d0d] text-white">
       {/* NAV */}
       <header className="sticky top-0 z-50 bg-black/70 backdrop-blur border-b border-white/10">
-        <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="h-8 w-8 relative">
-              <svg viewBox="0 0 64 64" className="h-full w-full">
-                <rect x="2" y="2" width="60" height="60" rx="10" className="fill-transparent" style={{stroke:"#CBA135",strokeWidth:1.5}}/>
-                <path d="M16 46 V18 h12 c7 0 12 4 12 10 s-5 10-12 10 h-8" className="fill-none" style={{stroke:"#CBA135",strokeWidth:3,strokeLinecap:"round"}}/>
-                <path d="M42 20 v24 h10" className="fill-none" style={{stroke:"#CBA135",strokeWidth:3,strokeLinecap:"round"}}/>
-              </svg>
-            </div>
-            <div className="leading-tight">
-              <div className="font-semibold">Prime Legal & Consulting</div>
-              <div className="text-xs text-white/60">Baku, Azerbaijan</div>
-            </div>
-          </div>
-          <nav className="hidden md:flex items-center gap-6 text-sm">
-            <a href="#home" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.home}</a>
-            <a href="#about" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.about}</a>
-            <a href="#services" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.services}</a>
-            <a href="#team" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.team}</a>
-            <a href="#contact" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.contact}</a>
-          </nav>
-        </div>
-      </header>
+  <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+    {/* Sol tərəf: logo + ad */}
+    <div className="flex items-center gap-3">
+      <div className="h-8 w-8 relative">
+        <svg viewBox="0 0 64 64" className="h-full w-full">
+          <rect x="2" y="2" width="60" height="60" rx="10" className="fill-transparent" style={{stroke:"#CBA135",strokeWidth:1.5}}/>
+          <path d="M16 46 V18 h12 c7 0 12 4 12 10 s-5 10-12 10 h-8" className="fill-none" style={{stroke:"#CBA135",strokeWidth:3,strokeLinecap:"round"}}/>
+          <path d="M42 20 v24 h10" className="fill-none" style={{stroke:"#CBA135",strokeWidth:3,strokeLinecap:"round"}}/>
+        </svg>
+      </div>
+      <div className="leading-tight">
+        <div className="font-semibold">Prime Legal & Consulting</div>
+        <div className="text-xs text-white/60">Baku, Azerbaijan</div>
+      </div>
+    </div>
+
+    {/* Sağ tərəf: naviqasiya + dil dəyişdirici */}
+    <div className="flex items-center gap-6">
+      <nav className="hidden md:flex items-center gap-6 text-sm">
+        <a href="#home" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.home}</a>
+        <a href="#about" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.about}</a>
+        <a href="#services" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.services}</a>
+        <a href="#team" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.team}</a>
+        <a href="#contact" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.contact}</a>
+      </nav>
+
+      {/* Dil dəyişdirici (AZ / EN / RU) */}
+      <div className="flex items-center gap-2">
+        {[
+          { code: "az", label: "AZ" },
+          { code: "en", label: "EN" },
+          { code: "ru", label: "RU" },
+        ].map((l) => (
+          <a
+            key={l.code}
+            href={`/${l.code}`}
+            className="px-2 py-1 text-xs rounded border border-white/15 text-white/70 hover:text-white hover:border-white/30"
+          >
+            {l.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</header>
 
       {/* HERO */}
       <section id="home" className="relative h-[88vh] flex items-center justify-center">
