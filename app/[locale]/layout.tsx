@@ -1,19 +1,19 @@
 import "../globals.css";
-import { locales } from "@/lib/i18n";
 
 export async function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return [{ locale: "az" }, { locale: "en" }, { locale: "ru" }];
 }
+export const dynamicParams = false;
 
 export default function RootLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: { locale: "az" | "en" | "ru" };
 }) {
   return (
-    <html lang={locale}>
+    <html lang={params.locale}>
       <body>{children}</body>
     </html>
   );
