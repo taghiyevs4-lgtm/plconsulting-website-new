@@ -155,3 +155,19 @@ export default async function HomePage({ params: { locale } }: { params: { local
     </main>
   );
 }
+{/* Language switcher */}
+<div className="flex items-center gap-2">
+  {[
+    { code: "az", label: "AZ" },
+    { code: "en", label: "EN" },
+    { code: "ru", label: "RU" },
+  ].map((l) => (
+    <a
+      key={l.code}
+      href={`/${l.code}`}
+      className="px-2 py-1 text-xs rounded border border-white/15 text-white/70 hover:text-white hover:border-white/30"
+    >
+      {l.label}
+    </a>
+  ))}
+</div>
