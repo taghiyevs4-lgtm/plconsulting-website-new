@@ -6,128 +6,137 @@ export default async function HomePage({ params: { locale } }: { params: { local
 
   return (
     <main className="bg-[#0d0d0d] text-white">
-      {/* NAV */}
+      {/* HEADER */}
       <header className="sticky top-0 z-50 bg-black/70 backdrop-blur border-b border-white/10">
-  <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-    {/* Sol tərəf: logo + ad */}
-    <div className="flex items-center gap-3">
-      <div className="h-8 w-8 relative">
-        <svg viewBox="0 0 64 64" className="h-full w-full">
-          <rect x="2" y="2" width="60" height="60" rx="10" className="fill-transparent" style={{stroke:"#CBA135",strokeWidth:1.5}}/>
-          <path d="M16 46 V18 h12 c7 0 12 4 12 10 s-5 10-12 10 h-8" className="fill-none" style={{stroke:"#CBA135",strokeWidth:3,strokeLinecap:"round"}}/>
-          <path d="M42 20 v24 h10" className="fill-none" style={{stroke:"#CBA135",strokeWidth:3,strokeLinecap:"round"}}/>
-        </svg>
-      </div>
-      <div className="leading-tight">
-        <div className="font-semibold">Prime Legal & Consulting</div>
-        <div className="text-xs text-white/60">Baku, Azerbaijan</div>
-      </div>
-    </div>
-
-    {/* Sağ tərəf: naviqasiya + dil dəyişdirici */}
-    <div className="flex items-center gap-6">
-      <nav className="hidden md:flex items-center gap-6 text-sm">
-        <a href="#home" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.home}</a>
-        <a href="#about" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.about}</a>
-        <a href="#services" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.services}</a>
-        <a href="#team" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.team}</a>
-        <a href="#contact" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.contact}</a>
-      </nav>
-
-      {/* Dil dəyişdirici (AZ / EN / RU) */}
-      <div className="flex items-center gap-2">
-        {[
-          { code: "az", label: "AZ" },
-          { code: "en", label: "EN" },
-          { code: "ru", label: "RU" },
-        ].map((l) => (
-          <a
-            key={l.code}
-            href={`/${l.code}`}
-            className="px-2 py-1 text-xs rounded border border-white/15 text-white/70 hover:text-white hover:border-white/30"
-          >
-            {l.label}
-          </a>
-        ))}
-      </div>
-    </div>
-  </div>
-</header>
+        <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="h-8 w-8 relative">
+              <svg viewBox="0 0 64 64" className="h-full w-full">
+                <rect x="2" y="2" width="60" height="60" rx="10" className="fill-transparent" style={{stroke:"#CBA135",strokeWidth:1.5}}/>
+                <path d="M16 46 V18 h12 c7 0 12 4 12 10 s-5 10-12 10 h-8" className="fill-none" style={{stroke:"#CBA135",strokeWidth:3,strokeLinecap:"round"}}/>
+                <path d="M42 20 v24 h10" className="fill-none" style={{stroke:"#CBA135",strokeWidth:3,strokeLinecap:"round"}}/>
+              </svg>
+            </div>
+            <div className="leading-tight">
+              <div className="font-semibold">Prime Legal & Consulting</div>
+              <div className="text-xs text-white/60">Baku, Azerbaijan</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-6">
+            <nav className="hidden md:flex items-center gap-6 text-sm">
+              <a href="#home" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.home}</a>
+              <a href="#about" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.about}</a>
+              <a href="#services" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.services}</a>
+              <a href="#team" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.team}</a>
+              <a href="#contact" className="uppercase tracking-wide text-white/70 hover:text-white">{dict.nav.contact}</a>
+            </nav>
+            {/* Language switcher */}
+            <div className="flex items-center gap-2">
+              {[
+                { code: "az", label: "AZ" },
+                { code: "en", label: "EN" },
+                { code: "ru", label: "RU" },
+              ].map((l) => (
+                <a
+                  key={l.code}
+                  href={`/${l.code}`}
+                  className={`px-2 py-1 text-xs rounded border ${
+                    locale===l.code ? "border-[#c7a249] text-[#c7a249]" : "border-white/15 text-white/70 hover:text-white hover:border-white/30"
+                  }`}
+                >
+                  {l.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </header>
 
       {/* HERO */}
       <section id="home" className="relative h-[88vh] flex items-center justify-center">
         <div className="absolute inset-0">
-          <Image
-            src="/images/hero.jpg"
-            alt="Prime Legal & Consulting"
-            fill
-            priority
-            className="object-cover opacity-50"
-          />
+          <Image src="/images/hero.jpg" alt="Prime Legal & Consulting" fill priority className="object-cover opacity-50"/>
         </div>
-        <div className="relative z-10 text-center px-6">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4 text-[#c7a249]">
-            {dict.hero.title}
-          </h1>
-          <p className="text-lg md:text-2xl text-white/90 max-w-3xl mx-auto">
-            {dict.hero.subtitle}
-          </p>
-          <a
-            href="#services"
-            className="mt-8 inline-block px-8 py-3 bg-[#c7a249] text-black font-semibold rounded-lg hover:bg-yellow-500 transition"
-          >
-            {dict.hero.button}
-          </a>
-        </div>
-      </section>
-
-      {/* HAQQIMIZDA */}
-      <section id="about" className="py-16 border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-4">
-          <h2 className="text-3xl md:text-4xl font-semibold text-[#c7a249]">{dict.about.title}</h2>
-          <div className="grid md:grid-cols-2 gap-8 items-center mt-8">
-            <div className="relative h-80 rounded-xl overflow-hidden ring-1 ring-white/10">
-              <Image src="/images/legal.jpg" alt="About" fill className="object-cover"/>
-            </div>
-            <div className="space-y-3 text-white/80">
-              <p>{dict.about.text1}</p>
-              <p>{dict.about.text2}</p>
-              <ul className="list-disc ml-5">
-                <li>Strategiya + icra</li>
-                <li>Şəffaf qiymət və SLA</li>
-                <li>Diskretlik və təhlükəsizlik</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* XİDMƏTLƏR */}
-      <section id="services" className="py-16 border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-4">
-          <h2 className="text-3xl md:text-4xl font-semibold text-[#c7a249]">{dict.services.title}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
-            {[
-              {src:"/images/legal.jpg",   ...dict.services.items[0]},
-              {src:"/images/finance.jpg", ...dict.services.items[1]},
-              {src:"/images/hr.jpg",      ...dict.services.items[2]},
-              {src:"/images/event.jpg",   ...dict.services.items[3]},
-            ].map((card)=>(
-              <div key={card.title} className="bg-[#141414] rounded-xl overflow-hidden ring-1 ring-white/10 hover:scale-[1.02] transition">
-                <div className="relative h-56">
-                  <Image src={card.src} alt={card.title} fill className="object-cover" />
-                </div>
-                <div className="p-5">
-                  <div className="text-xl font-semibold text-[#c7a249]">{card.title}</div>
-                  <p className="mt-2 text-sm text-white/70">{card.text}</p>
-                </div>
-              </div>
+        <div className="relative z-10 text-center px-6 max-w-4xl">
+          <h1 className="text-5xl md:text-6xl font-bold mb-4 text-[#c7a249]">{dict.hero.title}</h1>
+          <p className="text-lg md:text-2xl text-white/90">{dict.hero.subtitle}</p>
+          {dict.hero.short && <p className="mt-6 text-white/80">{dict.hero.short}</p>}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            {(dict.hero.ctas ?? []).map((c: string, i: number) => (
+              <a key={i} href="#contact" className="px-6 py-3 bg-[#c7a249] text-black font-semibold rounded-lg hover:bg-yellow-500 transition">
+                {c}
+              </a>
             ))}
           </div>
         </div>
       </section>
 
-      {/* KOMANDA */}
+      {/* ABOUT */}
+      <section id="about" className="py-16 border-t border-white/10">
+        <div className="mx-auto max-w-7xl px-4">
+          <h2 className="text-3xl md:text-4xl font-semibold text-[#c7a249]">{dict.about.title}</h2>
+          <div className="grid md:grid-cols-2 gap-8 items-start mt-8">
+            <div className="space-y-4 text-white/80">
+              {dict.about.premiumIntro1 && <p>{dict.about.premiumIntro1}</p>}
+              {dict.about.premiumIntro2 && <p>{dict.about.premiumIntro2}</p>}
+              {dict.about.premiumIntro3 && <p>{dict.about.premiumIntro3}</p>}
+              {Array.isArray(dict.about.bullets) && (
+                <ul className="list-disc ml-5 mt-4">
+                  {dict.about.bullets.map((b: string) => <li key={b}>{b}</li>)}
+                </ul>
+              )}
+            </div>
+            <div className="relative h-80 rounded-xl overflow-hidden ring-1 ring-white/10">
+              <Image src="/images/legal.jpg" alt="About" fill className="object-cover"/>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICES — detallı mətnlər varsa onları göstəririk, yoxdursa kart fallback */}
+      <section id="services" className="py-16 border-t border-white/10">
+        <div className="mx-auto max-w-7xl px-4">
+          <h2 className="text-3xl md:text-4xl font-semibold text-[#c7a249]">{dict.services.title}</h2>
+
+          {Array.isArray(dict.services.details) && dict.services.details.length > 0 ? (
+            <div className="mt-10 space-y-12">
+              {dict.services.details.map((s: any) => (
+                <div key={s.title} className="grid md:grid-cols-2 gap-8 items-start">
+                  <div className="space-y-3">
+                    <div className="text-2xl font-semibold text-[#c7a249]">{s.icon} {s.title}</div>
+                    {s.intro && <p className="text-white/80">{s.intro}</p>}
+                    {Array.isArray(s.points) && (
+                      <ul className="list-disc ml-5 text-white/80">
+                        {s.points.map((p: string) => <li key={p}>{p}</li>)}
+                      </ul>
+                    )}
+                    {s.closing && <p className="text-white/80 mt-2">{s.closing}</p>}
+                  </div>
+                  <div className="relative h-64 rounded-xl overflow-hidden ring-1 ring-white/10">
+                    <Image src={s.image ?? "/images/hero.jpg"} alt={s.title} fill className="object-cover"/>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
+              {dict.services.items.map((card: any) => (
+                <div key={card.title} className="bg-[#141414] rounded-xl overflow-hidden ring-1 ring-white/10 hover:scale-[1.02] transition">
+                  <div className="relative h-56">
+                    <Image src={`/images/${card.title === "Hüquq" ? "legal" : card.title === "Maliyyə" ? "finance" : card.title === "HR" ? "hr" : "event"}.jpg`} alt={card.title} fill className="object-cover" />
+                  </div>
+                  <div className="p-5">
+                    <div className="text-xl font-semibold text-[#c7a249]">{card.title}</div>
+                    <p className="mt-2 text-sm text-white/70">{card.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* TEAM (placeholder — sonra real adlar/bio ilə əvəz edəcəyik) */}
       <section id="team" className="py-16 border-t border-white/10">
         <div className="mx-auto max-w-7xl px-4">
           <h2 className="text-3xl md:text-4xl font-semibold text-[#c7a249]">{dict.nav.team}</h2>
@@ -145,10 +154,11 @@ export default async function HomePage({ params: { locale } }: { params: { local
         </div>
       </section>
 
-      {/* ƏLAQƏ */}
+      {/* CONTACT */}
       <section id="contact" className="py-16 border-t border-white/10">
         <div className="mx-auto max-w-7xl px-4">
           <h2 className="text-3xl md:text-4xl font-semibold text-[#c7a249]">{dict.contact.title}</h2>
+          <p className="text-white/80 mt-3">{dict.contact.cta ?? ""}</p>
           <div className="grid md:grid-cols-2 gap-8 mt-8">
             <form
               action="https://formspree.io/f/xbldzxyz" /* öz Formspree ID-ni qoy */
@@ -177,19 +187,3 @@ export default async function HomePage({ params: { locale } }: { params: { local
     </main>
   );
 }
-{/* Language switcher */}
-<div className="flex items-center gap-2">
-  {[
-    { code: "az", label: "AZ" },
-    { code: "en", label: "EN" },
-    { code: "ru", label: "RU" },
-  ].map((l) => (
-    <a
-      key={l.code}
-      href={`/${l.code}`}
-      className="px-2 py-1 text-xs rounded border border-white/15 text-white/70 hover:text-white hover:border-white/30"
-    >
-      {l.label}
-    </a>
-  ))}
-</div>
