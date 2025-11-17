@@ -4,6 +4,13 @@ import { getDictionary } from "@/lib/i18n";
 export default async function HomePage({ params: { locale } }: { params: { locale: "az"|"en"|"ru" } }) {
   const dict = await getDictionary(locale);
 
+  // HERO üçün təhlükəsiz köməkçilər (AZ geniş, EN/RU sadə ola bilər)
+  const hero: any = (dict as any).hero || {};
+  const heroShort: string | undefined = typeof hero.short === "string" ? hero.short : undefined;
+  const heroCtas: string[] = Array.isArray(hero.ctas)
+    ? hero.ctas
+    : (typeof hero.button === "string" ? [hero.button] : []);
+
   return (
     <main className="bg-[#0d0d0d] text-white">
       {/* HEADER */}
@@ -60,9 +67,9 @@ export default async function HomePage({ params: { locale } }: { params: { local
         <div className="relative z-10 text-center px-6 max-w-4xl">
           <h1 className="text-5xl md:text-6xl font-bold mb-4 text-[#c7a249]">{dict.hero.title}</h1>
           <p className="text-lg md:text-2xl text-white/90">{dict.hero.subtitle}</p>
-          {dict.hero.short && <p className="mt-6 text-white/80">{dict.hero.short}</p>}
+          {heroShort && <p className="mt-6 text-white/80">{heroShort}</p>}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            {(dict.hero.ctas ?? []).map((c: string, i: number) => (
+            {heroCtas.map((c: string, i: number) => (
               <a key={i} href="#contact" className="px-6 py-3 bg-[#c7a249] text-black font-semibold rounded-lg hover:bg-yellow-500 transition">
                 {c}
               </a>
@@ -77,12 +84,12 @@ export default async function HomePage({ params: { locale } }: { params: { local
           <h2 className="text-3xl md:text-4xl font-semibold text-[#c7a249]">{dict.about.title}</h2>
           <div className="grid md:grid-cols-2 gap-8 items-start mt-8">
             <div className="space-y-4 text-white/80">
-              {dict.about.premiumIntro1 && <p>{dict.about.premiumIntro1}</p>}
-              {dict.about.premiumIntro2 && <p>{dict.about.premiumIntro2}</p>}
-              {dict.about.premiumIntro3 && <p>{dict.about.premiumIntro3}</p>}
-              {Array.isArray(dict.about.bullets) && (
+              {(dict.about as any).premiumIntro1 && <p>{(dict.about as any).premiumIntro1}</p>}
+              {(dict.about as any).premiumIntro2 && <p>{(dict.about as any).premiumIntro2}</p>}
+              {(dict.about as any).premiumIntro3 && <p>{(dict.about as any).premiumIntro3}</p>}
+              {Array.isArray((dict.about as any).bullets) && (
                 <ul className="list-disc ml-5 mt-4">
-                  {dict.about.bullets.map((b: string) => <li key={b}>{b}</li>)}
+                  {(dict.about as any).bullets.map((b: string) => <li key={b}>{b}</li>)}
                 </ul>
               )}
             </div>
@@ -93,14 +100,14 @@ export default async function HomePage({ params: { locale } }: { params: { local
         </div>
       </section>
 
-      {/* SERVICES — detallı mətnlər varsa onları göstəririk, yoxdursa kart fallback */}
+      {/* SERVICES (detallı varsa onu göstər) */}
       <section id="services" className="py-16 border-t border-white/10">
         <div className="mx-auto max-w-7xl px-4">
           <h2 className="text-3xl md:text-4xl font-semibold text-[#c7a249]">{dict.services.title}</h2>
 
-          {Array.isArray(dict.services.details) && dict.services.details.length > 0 ? (
+          {Array.isArray((dict.services as any).details) && (dict.services as any).details.length > 0 ? (
             <div className="mt-10 space-y-12">
-              {dict.services.details.map((s: any) => (
+              {(dict.services as any).details.map((s: any) => (
                 <div key={s.title} className="grid md:grid-cols-2 gap-8 items-start">
                   <div className="space-y-3">
                     <div className="text-2xl font-semibold text-[#c7a249]">{s.icon} {s.title}</div>
@@ -136,7 +143,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
         </div>
       </section>
 
-      {/* TEAM (placeholder — sonra real adlar/bio ilə əvəz edəcəyik) */}
+      {/* TEAM */}
       <section id="team" className="py-16 border-t border-white/10">
         <div className="mx-auto max-w-7xl px-4">
           <h2 className="text-3xl md:text-4xl font-semibold text-[#c7a249]">{dict.nav.team}</h2>
@@ -158,7 +165,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
       <section id="contact" className="py-16 border-t border-white/10">
         <div className="mx-auto max-w-7xl px-4">
           <h2 className="text-3xl md:text-4xl font-semibold text-[#c7a249]">{dict.contact.title}</h2>
-          <p className="text-white/80 mt-3">{dict.contact.cta ?? ""}</p>
+        <p className="text-white/80 mt-3">{(dict.contact as any).cta ?? ""}</p>
           <div className="grid md:grid-cols-2 gap-8 mt-8">
             <form
               action="https://formspree.io/f/xbldzxyz" /* öz Formspree ID-ni qoy */
